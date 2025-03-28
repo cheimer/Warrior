@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
+#include "ScalableFloat.h"
 #include "WarriorStructTypes.generated.h"
 
 class UWarriorHeroGameplayAbility;
@@ -38,4 +39,7 @@ struct FWarriorHeroWeaponData
  
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
 	TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	FScalableFloat WeaponBaseDamage;
 };

@@ -3,6 +3,7 @@
 
 #include "Characters/WarriorBaseCharacter.h"
 
+#include "WarriorDebugHelper.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "AbilitySystem/WarriorAttributeSet.h"
 
@@ -23,6 +24,11 @@ UAbilitySystemComponent* AWarriorBaseCharacter::GetAbilitySystemComponent() cons
 	return GetWarriorAbilitySystemComponent();
 }
 
+UPawnCombatComponent* AWarriorBaseCharacter::GetPawnCombatComponent() const
+{
+ 	return nullptr;
+}
+
 void AWarriorBaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
@@ -33,4 +39,5 @@ void AWarriorBaseCharacter::PossessedBy(AController* NewController)
  
  		ensureMsgf(!CharacterStartUpData.IsNull(),TEXT("Forgot to assign start up data to %s"),*GetName());
 	}
+
 }

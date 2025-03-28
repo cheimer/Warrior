@@ -56,15 +56,7 @@ void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
 		}
 	}
-	UAbilitySystemComponent* TestAbilitySystemComponent = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(this);
-	if (TestAbilitySystemComponent)
-	{
-		Debug::Print("Yes");
-	}
-	else
-	{
-		Debug::Print("Not");
-	}
+
 }
 
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -94,6 +86,11 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 void AWarriorHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+UPawnCombatComponent* AWarriorHeroCharacter::GetPawnCombatComponent() const
+{
+ 	return HeroCombatComponent;
 }
 
 void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)

@@ -20,14 +20,17 @@ class WARRIOR_API AWarriorHeroCharacter : public AWarriorBaseCharacter
 public:
 	AWarriorHeroCharacter();
 
+	//~ Begin IPawnCombatInterface Interface.
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	//~ End IPawnCombatInterface Interface
+
 protected:
 	//~ Begin APawn
 	virtual void PossessedBy(AController* NewController) override;
 	//~ End APawn
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
-
-
+	
 private:
 #pragma region Components
 	
