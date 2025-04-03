@@ -13,6 +13,7 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+class IPawnUIInterface;
 /**
  * 
  */
@@ -23,6 +24,8 @@ class WARRIOR_API UWarriorAttributeSet : public UAttributeSet
 	
 public:
 	UWarriorAttributeSet();
+ 
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData &Data) override;
  
 	UPROPERTY(BlueprintReadOnly, Category = "Health")
 	FGameplayAttributeData CurrentHealth;
@@ -51,4 +54,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Damage")
 	FGameplayAttributeData DamageTaken;
 	ATTRIBUTE_ACCESSORS(UWarriorAttributeSet,DamageTaken)
+	
+private:
+	TWeakInterfacePtr<IPawnUIInterface> CachedPawnUIInterface;
 };

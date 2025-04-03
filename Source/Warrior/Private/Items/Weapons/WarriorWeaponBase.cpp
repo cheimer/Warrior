@@ -50,7 +50,6 @@ void AWarriorWeaponBase::OnCollisionBoxEndOverlap(UPrimitiveComponent* Overlappe
 	{
 		if (WeaponOwningPawn != HitPawn)
 		{
-			Debug::Print(GetName() + TEXT(" end overlap with ") + HitPawn->GetName(),FColor::Red);
 			OnWeaponPulledFromTarget.ExecuteIfBound(OtherActor);
 		}
  
