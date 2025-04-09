@@ -2,6 +2,8 @@
 
 
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
+
+#include "WarriorGameplayTags.h"
 #include "AbilitySystem/Abilities/WarriorHeroGameplayAbility.h"
 
 #include "WarriorTypes/WarriorStructTypes.h"
@@ -18,12 +20,40 @@ void UWarriorAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& I
 	{
 		if(!AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InInputTag)) continue;
  
-		TryActivateAbility(AbilitySpec.Handle);
+		if (InInputTag.MatchesTag(WarriorGameplayTags::InputTag_Toggleable))
+		{	
+			if (AbilitySpec.IsActive())
+			{
+				CancelAbilityHandle(AbilitySpec.Handle);
+			}
+			else
+			{
+				TryActivateAbility(AbilitySpec.Handle);
+			}
+		}
+		else
+		{
+			TryActivateAbility(AbilitySpec.Handle);
+		}
+ 
+ 		
 	}
 }
  
 void UWarriorAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InInputTag)
 {
+	if (!InInputTag.IsValid() || !InInputTag.MatchesTag(WarriorGameplayTags::InputTag_MustBeHeld))
+	{
+		return;
+	}
+ 
+	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+	{  
+		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag) && AbilitySpec.IsActive())
+		{
+			CancelAbilityHandle(AbilitySpec.Handle);
+		}
+	}
 }
 
 void UWarriorAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FWarriorHeroAbilitySet>& InDefaultWeaponAbilities,
