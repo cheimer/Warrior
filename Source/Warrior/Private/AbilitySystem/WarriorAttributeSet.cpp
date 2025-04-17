@@ -59,17 +59,20 @@ void UWarriorAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCal
  
 		SetCurrentHealth(NewCurrentHealth);
  
-		/*
-		const FString DebugString = FString::Printf(
-			TEXT("Old Health: %f, Damage Done: %f, NewCurrentHealth: %f"),
-			OldHealth,
-			DamageDone,
-			NewCurrentHealth
-		);
- 
-		Debug::Print(DebugString,FColor::Green);
-		*/
- 
+		if (GetCurrentRage() == GetMaxRage())
+		{
+			UWarriorFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(),WarriorGameplayTags::Player_Status_Rage_Full);
+		}
+		else if (GetCurrentRage() == 0.f)
+		{
+			UWarriorFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(),WarriorGameplayTags::Player_Status_Rage_None);
+		}
+		else
+		{
+			UWarriorFunctionLibrary::RemoveGameplayTagFromActorIfFound(Data.Target.GetAvatarActor(),WarriorGameplayTags::Player_Status_Rage_Full);
+			UWarriorFunctionLibrary::RemoveGameplayTagFromActorIfFound(Data.Target.GetAvatarActor(),WarriorGameplayTags::Player_Status_Rage_None);
+		}
+		
 		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth()/GetMaxHealth());
 		
 		if (GetCurrentHealth() == 0.f)

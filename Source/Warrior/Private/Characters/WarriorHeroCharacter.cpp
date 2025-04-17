@@ -171,3 +171,14 @@ void AWarriorHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
 {
 	WarriorAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }
+
+void AWarriorHeroCharacter::Input_PickUpStonesStarted(const FInputActionValue& InputActionValue)
+{
+	FGameplayEventData Data;
+ 
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+		this,
+		WarriorGameplayTags::Player_Event_ConsumeStones,
+		Data
+	);
+}

@@ -69,8 +69,11 @@ private:
 	void Input_AbilityInputPressed(FGameplayTag InInputTag);
 	void Input_AbilityInputReleased(FGameplayTag InInputTag);
  
+	void Input_PickUpStonesStarted(const FInputActionValue& InputActionValue);
+	
 #pragma endregion Inputs
 
+	UPROPERTY()
 	FVector2D SwitchDirection = FVector2D::ZeroVector;
 	
 public:
